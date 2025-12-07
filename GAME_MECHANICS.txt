@@ -1,0 +1,170 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                 COLOR MATCHING GESTURE GAME - MECHANICS                    ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+┌─ GAME SCREEN LAYOUT ─────────────────────────────────────────────────────┐
+│                                                                            │
+│ Score: 1200        FPS: 25.3                                             │
+│ Level: 2                                                                  │
+│ Pairs: 2/4                                                               │
+│ Combo: 2x                                                                │
+│                                                                           │
+│   ◯ BLUE          ◯ RED          ◯ GREEN                                │
+│                                                                           │
+│       ◯ YELLOW   ◯ BLUE  ← WHITE BORDER = SELECTED!                    │
+│                                                                           │
+│   ◯ GREEN         ◯ YELLOW                                             │
+│                                                                           │
+│ Match same colors | H: Help | Q: Quit | R: Reset                        │
+│                                                                           │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ STEP-BY-STEP GAMEPLAY ──────────────────────────────────────────────────┐
+│                                                                            │
+│ STEP 1: Move hand near any ball                                          │
+│         ◯ BLUE → Gets white border (SELECTED)                           │
+│                                                                            │
+│ STEP 2: Move hand towards another BLUE ball                             │
+│         ◯ BLUE                                                           │
+│          ╲                                                               │
+│           ╲ ← YELLOW LINE shows where you're connecting to              │
+│            ◯ BLUE (matches!)                                            │
+│                                                                            │
+│ STEP 3: System checks colors                                            │
+│         Same color? ✓ YES → They match!                                 │
+│                                                                            │
+│ STEP 4: Connection appears                                              │
+│         ◯ BLUE                                                           │
+│         ════════ (solid line now)                                       │
+│         ◯ BLUE    (+200 points!)                                        │
+│                                                                            │
+│ STEP 5: Repeat with other color pairs until all matched                 │
+│                                                                            │
+│ STEP 6: Level complete → Next level with more balls                     │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ VISUAL FEEDBACK GUIDE ──────────────────────────────────────────────────┐
+│                                                                            │
+│ Normal Ball:           ◯ (solid colored circle)                         │
+│                                                                            │
+│ Selected Ball:         ⊙ (white border around it)                       │
+│                        ╲ Yellow line to your hand                       │
+│                                                                            │
+│ Matched Pair:          ◯═════════◯ (solid line between them)            │
+│                        (stays on screen)                                 │
+│                                                                            │
+│ Cursor Position:       ⊕ (target circle when hovering)                  │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ SCORING EXAMPLE ────────────────────────────────────────────────────────┐
+│                                                                            │
+│ Action                          Points    Total Score                   │
+│ ────────────────────────────────────────────────────────────────────────│
+│ Match 1 (1x combo):             200       200                          │
+│ Match 2 (2x combo):             400       600                          │
+│ Match 3 (3x combo):             600       1,200                        │
+│ Match 4 (4x combo):             800       2,000                        │
+│ Wrong match:                    -0        Reset combo to 0             │
+│ Next match (back to 1x):        200       2,200                        │
+│ Level 2 complete (8 balls):     +1,000    2,200 + bonus               │
+│                                                                            │
+│ KEY: Points = 200 × (combo multiplier)                                 │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ HAND DETECTION ZONES ───────────────────────────────────────────────────┐
+│                                                                            │
+│ ◯ Normal distance:    30-60cm away (good for playing)                   │
+│ ◯ Too close:          <20cm (hard to detect full hand)                  │
+│ ◯ Too far:            >80cm (weak detection)                            │
+│ ◯ Best:              45-55cm away (sweet spot)                          │
+│                                                                            │
+│ Hand fully visible? ✓ = Good detection                                  │
+│ Hand partially out? ✗ = Detection fails                                 │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ LEVEL PROGRESSION ──────────────────────────────────────────────────────┐
+│                                                                            │
+│ Level 1: 3 pairs (6 balls)    [Easy - Learning phase]                  │
+│ Level 2: 4 pairs (8 balls)    [Getting harder]                         │
+│ Level 3: 5 pairs (10 balls)   [Medium challenge]                       │
+│ Level 4: 6 pairs (12 balls)   [Hard]                                   │
+│ Level 5: 7 pairs (14 balls)   [Very hard]                              │
+│ Level n: 2+n pairs (4+2n)     [Pattern continues]                      │
+│                                                                            │
+│ Complete all pairs → Next level with +1 pair and +500 bonus points    │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ DECISION TREE ──────────────────────────────────────────────────────────┐
+│                                                                            │
+│          Start Game                                                      │
+│               │                                                          │
+│               ▼                                                          │
+│        Move hand near ball A                                            │
+│               │                                                          │
+│    ┌──────────┴──────────┐                                             │
+│    ▼                     ▼                                              │
+│  Selected?            Continue                                         │
+│    │                  searching...                                     │
+│    ▼                                                                    │
+│  Move to ball B                                                        │
+│    │                                                                    │
+│    ├─ Same color as A?                                                │
+│    │    │                                                              │
+│    │  ┌─┴─┐                                                           │
+│    │  ▼   ▼                                                           │
+│    │ YES  NO                                                          │
+│    │  │    │                                                          │
+│    │  ▼    ▼                                                          │
+│    │ +200× Reset                                                      │
+│    │ combo combo                                                      │
+│    │  │    │                                                          │
+│    │  └────┤                                                          │
+│    │       ▼                                                          │
+│    │   Continue...                                                    │
+│    │                                                                  │
+│    └─ All pairs matched?                                             │
+│         │                                                             │
+│    ┌────┴────┐                                                       │
+│    ▼         ▼                                                       │
+│   YES        NO                                                      │
+│    │         │                                                       │
+│    ▼         ▼                                                       │
+│  Next      Keep                                                      │
+│  Level     Playing                                                   │
+│                                                                       │
+└────────────────────────────────────────────────────────────────────────┘
+
+┌─ HAND GESTURE BREAKDOWN ─────────────────────────────────────────────────┐
+│                                                                            │
+│ Movement 1: Hover over ball A                                           │
+│     Index finger → Ball A → White border appears                       │
+│                                                                            │
+│ Movement 2: Move towards ball B (same color)                           │
+│     From A ─────→ To B → Yellow line draws in between                 │
+│                                                                            │
+│ Result: If colors match                                                │
+│     Solid line ─────────── Stays on screen (matched!)                │
+│     +Points × Combo multiplier added to score                        │
+│     Ball A & B marked as complete                                    │
+│                                                                            │
+│ Result: If colors don't match                                          │
+│     Yellow line disappears                                            │
+│     Combo resets to 0                                                 │
+│     Try again!                                                        │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+REMEMBER:
+✓ One hand controls cursor
+✓ Balls of same color = makeable pair
+✓ Yellow line while selecting = feedback
+✓ Solid line = successful match
+✓ Combo = consecutive correct matches (higher = more points!)
+✓ Level up when all pairs matched
+
+Ready to play? → python3.11 game.py

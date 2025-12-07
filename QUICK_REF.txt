@@ -1,0 +1,109 @@
+# Quick Reference - Color Matching Game
+
+## 🎮 START GAME
+```bash
+cd /Users/manasa/gesture_game
+python3.11 game.py
+```
+
+## 🎯 OBJECTIVE
+**Find and connect two balls of the SAME COLOR**
+
+## 📊 GAME FLOW
+```
+Hand → Select Ball 1 → Move to Ball 2 (same color) → Match! → Points
+                ↓                                      ↓
+           (White border)                    (Line appears, +200 points)
+```
+
+## 🎮 CONTROLS
+| Action | Key |
+|--------|-----|
+| Move hand/select | Move hand in frame |
+| Toggle help | H |
+| Toggle FPS | F |
+| Reset game | R |
+| Quit | Q or ESC |
+
+## 📈 SCORING
+- **Match (1x combo)**: 200 points
+- **Match (2x combo)**: 400 points  
+- **Match (3x combo)**: 600 points
+- **Wrong match**: Combo resets
+- **Level complete**: Bonus 500 × level
+
+## 🌈 VISUAL GUIDE
+
+**White Border** = Currently selected ball
+**Yellow Line** = Drawing from first ball to hand
+**Solid Color Line** = Successfully matched pair
+**Grayed out** = Already matched balls
+
+## 💡 TIPS
+✓ Keep hand visible in camera
+✓ Move slowly and smoothly
+✓ Good lighting = better detection
+✓ Maintain combos for high scores
+✓ 30-60cm distance from camera
+
+## ⚙️ ADJUST DIFFICULTY
+
+### Easy Mode
+```python
+# Edit game_manager.py
+self.ball_radius = 35
+self.selection_distance = 80
+self.max_balls = 4 + self.level
+```
+
+### Hard Mode
+```python
+# Edit game_manager.py
+self.ball_radius = 15
+self.selection_distance = 30
+self.max_balls = 8 + self.level * 2
+```
+
+## 🐛 TROUBLESHOOTING
+
+**No hand detection?**
+→ Better lighting, keep hand in frame
+
+**Can't click balls?**
+→ Increase `selection_distance` in game_manager.py
+
+**Game too slow?**
+→ Reduce `max_balls` or close other apps
+
+**Want bigger balls?**
+→ Increase `ball_radius` in game_manager.py
+
+## 📁 PROJECT FILES
+```
+gesture_game/
+├── game.py                    ← Main game
+├── game_manager.py            ← Game logic
+├── gesture_detector.py        ← Hand detection
+├── utils.py                   ← Helper functions
+├── requirements.txt           ← Dependencies
+├── COLOR_MATCHING_GUIDE.md    ← Detailed guide
+└── CHANGES_SUMMARY.md         ← What changed
+```
+
+## 🎯 LEVEL PROGRESSION
+| Level | Pairs | Challenge |
+|-------|-------|-----------|
+| 1 | 3 | Learn |
+| 2 | 4 | Easy |
+| 3 | 5 | Medium |
+| 4+ | +1 each | Hard |
+
+## 🏆 HIGH SCORE TIPS
+1. Maintain high combos (consecutive correct matches)
+2. Match quickly to reach next level faster
+3. Each level has 500 × level bonus
+4. 3x combo = 600 points per match vs 200 without combo
+
+---
+
+**Ready? `python3.11 game.py`** 🚀
